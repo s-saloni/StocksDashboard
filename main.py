@@ -55,7 +55,7 @@ def show_linreg_setup():
     st.markdown('---')
     st.markdown("""<div style='text-align: center;'><h3><b>REGRESSION CHART</b></h3></div>""", unsafe_allow_html=True)
     st.markdown("""<div style='text-align: center;'>Perform linear regression analysis to see estimated \
-         price for the stock.</div>""", unsafe_allow_html=True)
+         prices for the stock.</div>""", unsafe_allow_html=True)
 
 # Get historical market data
 @st.cache
