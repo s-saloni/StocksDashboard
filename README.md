@@ -1,6 +1,6 @@
 # Stocks Dashboard Web App
 Streamlit-based web app to view stock information and run simple linear regression analysis to see predicted prices.
 
-[Explore web app here.](https://share.streamlit.io/s-saloni/stockswebapp/main/main.py)
+[View the web app here](https://thestockforecast.herokuapp.com/)
 
 ![App demo](demo.gif)
