@@ -13,6 +13,17 @@ from plotly import graph_objects as go
 import requests
 from bs4 import BeautifulSoup
 
+from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LinearRegression
+
+
+#################### GET TICKERS ####################
+# Function to extract list of tickers from Nasdaq screener
+def get_tickers(filename):
+    screener = pd.read_csv(filename)
+    tickers = screener['Symbol']
+    tickers.to_csv('AllTickers.csv', index=False)
+    return list(tickers)
 
 #################### SIDEBAR FUNCTIONS ####################
 # Function to scrape info on ticker
@@ -55,7 +66,7 @@ def show_linreg_setup():
     st.markdown('---')
     st.markdown("""<div style='text-align: center;'><h3><b>REGRESSION CHART</b></h3></div>""", unsafe_allow_html=True)
     st.markdown("""<div style='text-align: center;'>Perform linear regression analysis to see estimated \
-         prices for the stock.</div>""", unsafe_allow_html=True)
+         price for the stock.</div>""", unsafe_allow_html=True)
 
 # Get historical market data
 @st.cache
@@ -87,9 +98,6 @@ def plot_historical_chart(ticker, data):
 
 
 # Forecasting
-# for linear regression
-from sklearn.model_selection import train_test_split 
-from sklearn.linear_model import LinearRegression
 
 @st.cache
 def update_data(data, start, stop):
@@ -128,9 +136,8 @@ def plot_linreg(data, model_pred, ticker):
 #------------------------SETUP-----------------------#
 st.set_page_config(layout="wide") #wide width of page 
 
-# Load ticker symbols
-alltickers_df = pd.read_csv("AllTickers.csv")
-tickers = list(alltickers_df['Symbol'])
+# Load tickers
+tickers = get_tickers('NasdaqScreener.csv') #get new list of tickers
 
 # Main Page 
 st.markdown("""<div style='text-align: center;'><h1>THE STOCK FORECAST 📈</h1></div>""", unsafe_allow_html=True)
@@ -146,6 +153,7 @@ ticker = st.sidebar.text_input("") #search box
 st.sidebar.markdown("")
 st.sidebar.markdown("")
 st.sidebar.markdown("""<h3 style='text-align: center;'>SUMMARY</h3>""", unsafe_allow_html=True)
+
 
 
 #---------------------RUN PROGRAM--------------------#
@@ -189,4 +197,3 @@ else:
     if st.button('SHOW REGRESSION'):
         model_x, model_pred = run_linear_regression(new_data)
         plot_linreg(new_data, model_pred, ticker)
- 
