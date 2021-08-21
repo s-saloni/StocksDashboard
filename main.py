@@ -65,7 +65,7 @@ def show_linreg_setup():
     st.markdown('')
     st.markdown('---')
     st.markdown("""<div style='text-align: center;'><h3><b>REGRESSION CHART</b></h3></div>""", unsafe_allow_html=True)
-    st.markdown("""<div style='text-align: center;'>Perform linear regression analysis to see estimated \
+    st.markdown("""<div style='text-align: center; padding-bottom:15px;'>Perform linear regression analysis to see estimated \
          price for the stock.</div>""", unsafe_allow_html=True)
 
 # Get historical market data
@@ -118,12 +118,12 @@ def run_linear_regression(data):
 
 def plot_linreg(data, model_pred, ticker):
     #lin reg line plot
-    fig = go.Figure(data=[go.Scatter(x=data.Date, y=model_pred, name="Regression Price", line_color='#73BAD7')])
+    fig = go.Figure(data=[go.Scatter(x=data.Date, y=model_pred, name="Regression Price", line_color='#f63366')])
     fig.layout.update(xaxis_rangeslider_visible=True, height=750,\
         title_text = f"<b>Stock: {ticker}</b>")  
     fig.update_yaxes(title_text='Price (USD)')  
     #open price line plot
-    fig.add_trace(go.Scatter(x=data.Date, y=data.Open, name="Open Price", line_color='orange'))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.Open, name="Open Price", line_color='skyblue'))
     config={'modeBarButtonsToAdd': ['drawline']}
     st.plotly_chart(fig, use_container_width=True, config=config)
 
