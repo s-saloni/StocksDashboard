@@ -3,7 +3,7 @@
 
 # libraries 
 import streamlit as st
-from datetime import date
+from datetime import MAXYEAR, date
 import yfinance as yf
 
 import numpy as np
@@ -191,13 +191,17 @@ else:
     plot_historical_chart(ticker, data)
     # Regression
     show_linreg_setup()
+
     # get earliest year and most recent year from data set
     min_start, max_stop = data.Date.iloc[0].year, data.Date.iloc[-1].year
+    data_in_range = data
     # user selects range of years for regression data
-    start_stop = st.slider("SELECT RANGE OF YEARS:", min_start, max_stop, (min_start,max_stop))
-    start, stop = str(start_stop[0]), str(start_stop[1])
-    new_data = update_data(data, start, stop)
+    if min_start!=max_stop: #streamlit shows error, if only one value for range
+        start_stop = st.slider("SELECT RANGE OF YEARS:", min_start, max_stop, (min_start,max_stop))
+        start, stop = str(start_stop[0]), str(start_stop[1])
+        data_in_range = update_data(data_in_range, start, stop)
+
     # plot regression when button is clicked
     if st.button('SHOW REGRESSION'):
-        model_x, model_pred = run_linear_regression(new_data)
-        plot_linreg(new_data, model_pred, ticker)
+        model_x, model_pred = run_linear_regression(data_in_range)
+        plot_linreg(data_in_range, model_pred, ticker)
