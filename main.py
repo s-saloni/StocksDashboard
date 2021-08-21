@@ -22,6 +22,7 @@ from sklearn.linear_model import LinearRegression
 def get_tickers(filename):
     screener = pd.read_csv(filename)
     tickers = screener['Symbol']
+    #streamlit cannot save file when deployed
     #tickers.to_csv('AllTickers.csv', index=False)
     return list(tickers)
 
