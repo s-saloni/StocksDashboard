@@ -124,7 +124,7 @@ def plot_linreg(data, model_pred, ticker):
         title_text = f"<b>Stock: {ticker}</b>")  
     fig.update_yaxes(title_text='Price (USD)')  
     #open price line plot
-    fig.add_trace(go.Scatter(x=data.Date, y=data.Open, name="Open Price", line_color='skyblue'))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.Open, name="Open Price", line_color='dodgerblue'))
     config={'modeBarButtonsToAdd': ['drawline']}
     st.plotly_chart(fig, use_container_width=True, config=config)
 
@@ -141,9 +141,12 @@ st.set_page_config(layout="wide") #wide width of page
 tickers = get_tickers('NasdaqScreener.csv') #get new list of tickers
 
 # Main Page 
-st.markdown("""<div style='text-align: center;'><h1>THE STOCK FORECAST 📈</h1></div>""", unsafe_allow_html=True)
+st.markdown("""<a href="https://thestockforecast.herokuapp.com/" style="text-decoration: none;">
+            <div style='text-align: center;'><h1>THE STOCK FORECAST 📈</h1></div> </a>""", 
+            unsafe_allow_html=True)
 st.markdown("---")
-st.markdown("""<div style='text-align: center;'><h3><b>HISTORICAL CHART</b></h3></div>""", unsafe_allow_html=True)
+st.markdown("""<div style='text-align: center;'><h3><b>HISTORICAL CHART</b></h3></div>""", 
+            unsafe_allow_html=True)
 st.markdown("""<div style='text-align: center;'>View a candlestick chart with historical \
     daily prices of the stock.</div>""", unsafe_allow_html=True)
 st.markdown("")
